@@ -1,4 +1,4 @@
-require "rails_admin_tag_list/engine"
+require 'rails_admin_tag_list/engine'
 
 module RailsAdminTagList
 end
@@ -11,20 +11,20 @@ module RailsAdmin
     module Fields
       module Types
         class TagList < RailsAdmin::Config::Fields::Base
-          RailsAdmin::Config::Fields::Types::register(self)
+          RailsAdmin::Config::Fields::Types.register(self)
           register_instance_option(:formatted_value) do
-            value.join(', ')
+            value.join(', ') if value.present?
           end
 
           register_instance_option(:pretty_value) do
-            value.join(', ')
+            value.join(', ') if value.present?
           end
 
           # Accessor for field's label.
           #
           # @see RailsAdmin::AbstractModel.properties
           register_instance_option(:help) do
-            I18n.t(:tag_list_help, scope: [:admin, :new], default: 'Use commas to separate tags')
+            I18n.t(:tag_list_help, scope: %i[admin new], default: 'Use commas to separate tags')
           end
 
           register_instance_option(:partial) { :form_tag_list }
